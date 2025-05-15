@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // base: '/survive-react/',
+  base: '/survive-react/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

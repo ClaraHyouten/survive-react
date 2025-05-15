@@ -12,7 +12,7 @@ function App() {
   console.log('[DEBUG] App rendered');
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/survive-react/">
       <Routes>
         <Route path="/" element={<Menu version={version} />} />
         <Route path="/game" element={<Game />} />
