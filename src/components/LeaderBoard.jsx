@@ -1,8 +1,8 @@
+// store
 import { useGameData } from "../store/useGameData";
 
 export function LeaderBoard(){
     const { leaderboardData } = useGameData();
-
     const sortedLeaderboard = [...leaderboardData].sort((a, b) => b.score - a.score);
 
     return (

@@ -42,8 +42,9 @@ const defaultQuests = [
 
 export function Game() {
     // ? Store Zustand
-    const { initGame, ressources, addRessource, removeRessource, cells, setCells, time, addTime } = useGameData();
-    const { food, stone, wood, people, availablePeople } = ressources;
+    const { initGame, ressources, addRessource, removeRessource, time, addTime } = useGameData();
+    const { food, people } = ressources;
+    const availablePeople = useGameData((state) => state.getAvailablePeople());
 
     const navigate = useNavigate();
     
@@ -58,21 +59,6 @@ export function Game() {
         });
         setQuests(updatedQuests);
     };
-    
-    function handleUpdateCell(newType, position) {
-        const updatedCells = cells.map((row) => row.map((cell) => ({ ...cell })));
-        const cell = updatedCells[position.y][position.x];
-        if(cell.type != 'empty'){
-            return;
-        }
-        if(newType === 'house' && wood >= 5){
-            cell.type = 'house';
-            removeRessource("wood", 5);
-            addRessource("people", 2);
-        }
-        updatedCells[position.y][position.x] = cell;
-        setCells(updatedCells);
-    };
 
     useEffect(() => {
         const interval = setInterval(()=>{
@@ -84,8 +70,13 @@ export function Game() {
     },[]);
 
     useEffect(() => {
-        if(time % 1 == 0){
+        if(time % 10 == 0){
             people > 0 && removeRessource("food", people);
+        };
+        if(time % 5 == 0){
+            const workers = people - availablePeople;
+            addRessource("food", 1 * workers);
+            addRessource("wood", 1 * workers);
         }
     }, [time]);
 
@@ -103,7 +94,7 @@ export function Game() {
                 <QuestList quests={quests} onValidateQuest={handleValidateQuest} />
                 <ResourcePanel />
             </div>
-            <Map cells={cells} onUpdateCell={handleUpdateCell} />
+            <Map />
         </div>
     );
 }

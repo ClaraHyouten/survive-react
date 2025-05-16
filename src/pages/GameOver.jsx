@@ -9,7 +9,6 @@ import GameOverIcon from '../assets/img/icons/skull.svg';
 
 export function GameOver(){
     const [name, setName] = useState("");
-
     const { addPlayer, time, initGame } = useGameData();
 
     function handleSubmit(event){

@@ -18,7 +18,7 @@ function App() {
         <Route path="/game" element={<Game />} />
         <Route path="/game-over" element={<GameOver />} />
         <Route path="/404" element={<Page404 />} />
-        <Route path="*" element={<Navigate to='/404' replace />} />
+        <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>
     </BrowserRouter>
   )
